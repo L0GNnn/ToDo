@@ -17,6 +17,11 @@ public class ToDoController {
     @Autowired
     private ToDOService service;
 
+    @GetMapping("/test")
+    public String testJsp() {
+        return "ViewToDoList";
+    }
+
     @GetMapping({"/", "viewToDoList"})
     public String viewAllToDOItems(Model model, @ModelAttribute("message") String message){
         model.addAttribute("list", service.getAllToDoItems());
