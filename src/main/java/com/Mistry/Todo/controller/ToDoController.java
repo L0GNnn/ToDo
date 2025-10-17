@@ -30,7 +30,7 @@ public class ToDoController {
         return "ViewToDoList";
     }
 
-    @PostMapping("/updateToDoStatus/{id}")
+    @GetMapping("/updateToDoStatus/{id}")
     public String updateToDoStatus(@PathVariable Long id, RedirectAttributes redirectAttributes){
         if(service.updateStatus(id)){
             redirectAttributes.addFlashAttribute("message", "Update Success");
@@ -42,14 +42,14 @@ public class ToDoController {
     @GetMapping("/addToDoItem")
     public String addToDoItem(Model model){
         model.addAttribute("todo", new ToDO());
-        return "AddToDOItem";
+        return "AddToDoItem";
     }
 
     @PostMapping("/saveToDoItem")
     public String saveToDoItem(ToDO todo, RedirectAttributes redirectAttributes){
         if(service.saveOrUpdateToDoItem(todo)){
             redirectAttributes.addFlashAttribute("message", "Save Success");
-            return "redirect:/addToDOItem";
+            return "redirect:/viewToDoList";
         }
 
         redirectAttributes.addFlashAttribute("message", "Save Failure");
@@ -67,20 +67,21 @@ public class ToDoController {
     public String editSaveToDoItem(ToDO todo,  RedirectAttributes redirectAttributes){
         if(service.saveOrUpdateToDoItem(todo)){
             redirectAttributes.addFlashAttribute("message", "Save Success");
-            return "redirect:/addToDOItem";
+            return "redirect:/viewToDoList";
         }
 
         redirectAttributes.addFlashAttribute("message", "Save Failure");
         return "redirect:/editToDoItem" + todo.getId();
     }
 
-    @GetMapping("/deleteTodoItem/{id}")
-    public String deleteToDOItem(@PathVariable Long id, RedirectAttributes redirectAttributes){
+    @GetMapping("/deleteToDoItem/{id}")
+    public String deleteToDoItem(@PathVariable Long id, RedirectAttributes redirectAttributes){
         if(service.deleteToDoItem(id)){
             redirectAttributes.addFlashAttribute("message", "Delete Success");
+            return "redirect:/viewToDoList";
         }
 
         redirectAttributes.addFlashAttribute("message", "Delete Failure");
-        return "redirect:/viewToDOList";
+        return "redirect:/viewToDoList";
     }
 }

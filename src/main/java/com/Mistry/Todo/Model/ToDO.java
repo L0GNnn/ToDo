@@ -1,6 +1,8 @@
 package com.Mistry.Todo.Model;
 
 import jakarta.persistence.*;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.lang.NonNull;
 
 import java.util.Date;
 
@@ -10,8 +12,7 @@ public class ToDO {
     public ToDO() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+
     public Long getId() {
         return id;
     }
@@ -45,12 +46,18 @@ public class ToDO {
     }
 
     @Column
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @NonNull
     private Long id;
 
     @Column
+    @NonNull
     private String title;
 
     @Column
+    @NonNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
     @Column

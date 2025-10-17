@@ -42,7 +42,7 @@ public class ToDOService {
     public boolean deleteToDoItem(Long id){
         repo.deleteById(id);
 
-        if(getToDoItemById(id) == null){
+        if(repo.findById(id).isEmpty()){
             return true;
         }
         return false;
